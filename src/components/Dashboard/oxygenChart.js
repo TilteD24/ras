@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import "chart.js/auto"; // Import the bundled version of Chart.js
-import "./dashboard.css";
 import { Link } from "react-router-dom";
+import "./dashboard.css";
+
+// var channelId = "2499288";
+// var apiKey = "MYHA3IPBTBPD2IT8";
 
 var channelId = "2538104";
 var apiKey = "B5ANFPSFNSQSCNGT";
@@ -13,7 +16,7 @@ var url =
   "/feeds.json?api_key=" +
   apiKey;
 
-const Temperature = () => {
+const Oxygen = () => {
   const [chartData, setChartData] = useState({ labels: [], datasets: [] });
 
   useEffect(() => {
@@ -23,17 +26,17 @@ const Temperature = () => {
         const data = await response.json();
         const feeds = data.feeds.slice(-30);
 
-        const temperatures = feeds.map((feed) => ({
+        const oxygen = feeds.map((feed) => ({
           x: new Date(feed.created_at).toLocaleTimeString(),
-          y: feed.field4, // Assuming field1 contains temperature data
+          y: feed.field5, // Assuming field1 contains temperature data
         }));
 
         setChartData({
-          labels: temperatures.map((temp) => temp.x),
+          labels: oxygen.map((temp) => temp.x),
           datasets: [
             {
-              label: "Temperature",
-              data: temperatures.map((temp) => temp.y),
+              label: "Dissolved Oxygen",
+              data: oxygen.map((temp) => temp.y),
               fill: false,
               borderColor: "rgb(75, 192, 192)",
               tension: 0.1,
@@ -56,7 +59,7 @@ const Temperature = () => {
   return (
     <div className="dashboard">
       <div className="header">
-        Home / <Link to="/dashboard">Dashboard</Link> / Temparature{" "}
+        Home / <Link to="/dashboard">Dashboard</Link> / Oxygen{" "}
       </div>
       <div style={{ margin: "50px auto", width: "1000px", height: "800px" }}>
         <Line data={chartData} />
@@ -65,4 +68,4 @@ const Temperature = () => {
   );
 };
 
-export default Temperature;
+export default Oxygen;

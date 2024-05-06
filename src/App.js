@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Ph from "./components/Dashboard/pHchart";
 import TDS from "./components/Dashboard/tdsChart";
 import Turbidity from "./components/Dashboard/turbidity";
+import Oxygen from "./components/Dashboard/oxygenChart";
 
 const App = () => {
   const [isAuthenticated, setAuthenticated] = useState(
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/dashboard/pHChart" element={<Ph />} />
         <Route path="/dashboard/tdsChart" element={<TDS />} />
         <Route path="/dashboard/turbidityChart" element={<Turbidity />} />
+        <Route path="/dashboard/oxygenChart" element={<Oxygen />} />
       </Routes>
     </Router>
   );

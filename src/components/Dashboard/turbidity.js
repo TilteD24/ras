@@ -4,8 +4,8 @@ import "chart.js/auto"; // Import the bundled version of Chart.js
 import { Link } from "react-router-dom";
 import "./dashboard.css";
 
-var channelId = "2499288";
-var apiKey = "MYHA3IPBTBPD2IT8";
+var channelId = "2538104";
+var apiKey = "B5ANFPSFNSQSCNGT";
 
 var url =
   "https://api.thingspeak.com/channels/" +
@@ -21,8 +21,9 @@ const Turbidity = () => {
       try {
         const response = await fetch(url);
         const data = await response.json();
+        const feeds = data.feeds.slice(-30);
 
-        const turbidity = data.feeds.map((feed) => ({
+        const turbidity = feeds.map((feed) => ({
           x: new Date(feed.created_at).toLocaleTimeString(),
           y: feed.field3, // Assuming field1 contains temperature data
         }));
@@ -47,7 +48,7 @@ const Turbidity = () => {
     };
 
     fetchData();
-    const intervalId = setInterval(fetchData, 2000);
+    const intervalId = setInterval(fetchData, 15000);
 
     return () => clearInterval(intervalId);
   }, []);
